@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <link rel="stylesheet" href="task.css">
+</head>
+<body>
+    <div class="converter-container">
+        <h1>Temperature Converter</h1>
+        <form id="converter-form">
+            <div class="form-group">
+                <label for="temperature-input">Degrees</label>
+                <input type="number" id="temperature-input" placeholder="Enter temperature">
+            </div>
+            <div class="form-group">
+                <label for="temperature-type">Type</label>
+                <select id="temperature-type">
+                    <option value="fahrenheit">Fahrenheit</option>
+                    <option value="celsius">Celsius</option>
+                    <option value="kelvin">Kelvin</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="temperature-result">Result</label>
+                <input type="text" id="temperature-result" placeholder="Result" readonly>
+            </div>
+            <button type="button" id="convert-button">Convert</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('convert-button').addEventListener('click', function() {
+            const temperatureInput = parseFloat(document.getElementById('temperature-input').value);
+            const temperatureType = document.getElementById('temperature-type').value;
+            let result;
+
+            if (isNaN(temperatureInput)) {
+                alert('Please enter a valid number');
+                return;
+            }
+
+            switch (temperatureType) {
+                case 'fahrenheit':
+                    result = `${((temperatureInput - 32) * 5 / 9).toFixed(2)} °C\n`;
+                    result += `${(((temperatureInput - 32) * 5 / 9) + 273.15).toFixed(2)} K`;
+                    break;
+                case 'celsius':
+                    result = `${((temperatureInput * 9 / 5) + 32).toFixed(2)} °F\n`;
+                    result += `${(temperatureInput + 273.15).toFixed(2)} K`;
+                    break;
+                case 'kelvin':
+                    result = `${(temperatureInput - 273.15).toFixed(2)} °C\n`;
+                    result += `${(((temperatureInput - 273.15) * 9 / 5) + 32).toFixed(2)} °F`;
+                    break;
+            }
+
+            document.getElementById('temperature-result').value = result;
+        });
+    </script>
+</body>
+</html>
